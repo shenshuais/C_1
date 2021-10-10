@@ -1,6 +1,11 @@
-int
+int a, _b;
+float c, d;
 
-while
+a = 1 + 3;
+_b = a + 23;
 
-_hola 
-
+if(z+3)
+    a = 1;
+    b = 2;
+else
+    z = 1;

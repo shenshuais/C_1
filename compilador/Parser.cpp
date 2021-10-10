@@ -28,6 +28,7 @@ namespace C_1
     void Parser::declaracion(){
         tipo();
         lista_var();
+        eat(PYC);
     }
     void Parser::tipo(){
         switch(token){
@@ -159,6 +160,7 @@ namespace C_1
     }
     void Parser::error(string msg){
         cout<<"ERROR DE SINTAXIS"<<msg<<endl;
+        exit(-1);
 
     }
 
