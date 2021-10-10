@@ -2,7 +2,7 @@
 #define __SCANNER_HPP__ 1
 
 #if !defined(yyFlexLexerOnce)
-#include<FlexLexer.h>
+#include <FlexLexer.h> 
 #endif
 
 namespace C_1
