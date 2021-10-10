@@ -1,5 +1,5 @@
 # Proyecto de compilador C1
-###Integrantes
+### Integrantes
 
 * Cabrera Pérez Oswaldo
 * Meza Arguello Luis Fernando
