@@ -1,3 +1,0 @@
-int while else _hola + - * / = ( ) ; , 12 12.4 12.4e-2 float 5floa
-
-162a.12
