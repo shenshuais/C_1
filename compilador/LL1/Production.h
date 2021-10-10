@@ -11,6 +11,7 @@ private:
 
 public:
     Production(/* args */);
+    Production(int head, vector<int> body);
     ~Production();
 };
 
