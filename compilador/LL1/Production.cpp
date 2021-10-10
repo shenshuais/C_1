@@ -1,3 +1,6 @@
 #include <Production.h>
 
-Void 
+    Production::Production(int head, vector<int> body){
+        this -> head = head;
+        this -> body = body;
+    }
