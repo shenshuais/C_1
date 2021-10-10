@@ -728,7 +728,7 @@ case 18:
 /* rule 18 can match eol */
 YY_RULE_SETUP
 #line 41 "lexer.ll"
-{return ESPACE}
+{return ESPACE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
