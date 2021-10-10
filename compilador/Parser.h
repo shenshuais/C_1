@@ -1,28 +1,28 @@
 #ifndef PARSER_H
 #define PARSER_H
-#include "Scanner.h"
+#include "Lexer.h"
 #include <string>
 #include "tokens.h"
-usa namespace std;
+using namespace std;
 
 namespace C_1
 {
     class Parser
     {
     private:
-        Scanner *lexer;
+        Lexer *lexer;
         int token;
     public:
         Parser(/* args */);
-        Parser(Scanner *lexer);
+        Parser(Lexer *lexer);
         ~Parser();
         void programa();
         void declaraciones();
-        void declaracionesp();
+        void declaracionesP();
         void declaracion();
         void tipo();
         void lista_var();
-        void lista_VarP();
+        void lista_varP();
         void sentencias();
         void sentenciasP();
         void sentencia();
@@ -33,6 +33,7 @@ namespace C_1
         void factor();
         void eat(int t);
         void error(string msg);
+        void parse();
     };
     
 }
