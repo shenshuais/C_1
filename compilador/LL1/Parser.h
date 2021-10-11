@@ -10,6 +10,8 @@ private:
     map< int, map<int, int> > table;
     map<int, Symbol> syms;
     vector<Production> prod;
+    //Lexer *lexer;
+    int token;
 
 public:
     Parser(/* args */);
@@ -17,6 +19,7 @@ public:
     void loadTable();
     void loadSymbols();
     void loadProds();
+    int parse();
 };
 
 Parser::Parser(/* args */)

@@ -1,6 +1,7 @@
 #include "Parser.h"
 
 #include<vector>
+#include<stack>
 
 void Parser::loadSymbols(){
     syms[0] = Symbol("programa", noterminal, 0);
@@ -194,3 +195,28 @@ void Parser::loadTable(){
 
     }
 
+int Parser::parse(){
+
+    stack<Symbol> pila;
+    token = lexer -> yylex();
+    pila.push(syms[15]);
+    pila.push(syms[0]);
+    while (pila.top().getName()!="$")
+    {
+        if (pila.top().getType()==noterminal)
+        {
+            if(table[syms[pila.top().getId()]][token]!=-1)
+            {
+                pila.pop();
+                //aqui va el for para meter a la pila la produccion
+            }
+        }else if(pila.top().getType()==terminal){
+            if(pila.top() == ) {//aquí verificamos que el tope de pila sea igual al token
+                pila.pop();
+                token = lexer->yylex();
+            }else return -1;
+        }
+        
+    }
+    
+}
