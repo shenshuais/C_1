@@ -8,7 +8,7 @@ class Parser
 {
 private:
     map< int, map<int, int> > table;
-    map<int, Symbol> Syms;
+    map<int, Symbol> syms;
     vector<Production> prod;
 
 public:
