@@ -41,7 +41,7 @@ void Parser::loadSymbols(){
 
 void Parser::loadProds()
 {
-    vector<int> s ={1,2};
+    vector<int> s ={1,7};
     prod[0]=Production( 0 , s);
     s.clear();
     s = { 3 , 2 };
@@ -124,4 +124,73 @@ void Parser::loadProds()
     s.clear();
     
 }
+
+void Parser::loadTable(){
+
+    table[0][12]= 0;
+    table[0][13]= 0;
+
+    table[1][12]= 1;
+    table[1][13]= 1;
+
+    table[2][15] =  3;
+    table[2][16] = 3 ;
+    table[2][11] =  3;
+    table[2][12] = 2 ;
+    table[2][13] = 2 ;
+
+    table[3][12] = 4;
+    table[3][13]= 4;
+
+    table[4][12] = 5  ;
+    table[4][13] =  6 ;
+
+    table[5][11] = 7 ;
+
+    table[6][9] = 8 ;
+    table[6][8] =9;
+    
+    table[7][15] =  10;
+    table[7][16] =  10;
+    table[7][11] =  10;
+
+    table[8][15] =  11;
+    table[8][16] =  11;
+    table[8][11] =  11;
+    table[8][14] =  12;
+    table[9][0] = 12 ;
+
+    table[9][15] =  14;
+    table[9][16] =  15;
+    table[9][11] =  13;
+    
+
+    table[10][6] = 16  ;
+    table[10][11] =  16;
+    table[10][10] =  16;
+
+    table[11][1] = 17 ;
+    table[11][2] =  18;
+    table[11][7] =  19;
+    table[11][8] =  19;
+
+    table[12][6] = 20 ;
+    table[12][11] = 20;
+    table[12][10] = 20;
+
+    table[13][1] = 23 ;
+    table[13][2] = 23;
+    table[13][3] = 21 ;
+    table[13][4] =  22;
+    table[13][7] = 23;
+    table[13][8] = 23;
+
+    table[14][6] = 24 ;
+    table[14][11] = 25 ;
+    table[14][10] =  26;
+
+
+
+
+    }
 

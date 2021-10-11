@@ -14,6 +14,7 @@ private:
 public:
     Parser(/* args */);
     ~Parser();
+    void loadTable();
     void loadSymbols();
     void loadProds();
 };
