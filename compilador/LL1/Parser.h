@@ -1,31 +1,31 @@
-#include "Symbol.h"
-#include "Production.h"
+#ifndef PARSER_H
+#define PARSER_H
 
 #include <map>
+#include <stack>
 #include <vector>
 using namespace std;
+
+#include "Grammar.h"
+#include "Lexer.h"
+
+
+
 class Parser
 {
 private:
-    map< int, map<int, int> > table;
-    map<int, Symbol> syms;
-    vector<Production> prod;
-    //Lexer *lexer;
+    map<int, map<int, int>> table;
+    Grammar grammar;    
+    Lexer *lexer;
     int token;
-
 public:
-    Parser(/* args */);
+    Parser(Lexer *lexer);
     ~Parser();
-    void loadTable();
     void loadSymbols();
     void loadProds();
+    void loadTable();
     int parse();
+    void error(string  msg);
 };
 
-Parser::Parser(/* args */)
-{
-}
-
-Parser::~Parser()
-{
-}
+#endif // PARSER_H

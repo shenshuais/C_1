@@ -1,33 +1,33 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
-#include<string>
+#include <string>
 using namespace std;
 
-enum TYPESYM {terminal, noterminal, cadena};
-
+enum TYPESYM {terminal, noterminal, cadenaVacia};
 class Symbol
 {
+private:
+    string name;
+    TYPESYM type;
+    int id;
+    int idx;
 
-    private:
-        string name;
-        TYPESYM type;
-        int id;
+public:
+    Symbol(/* args */);
+    Symbol(string name, TYPESYM type, int id, int idx);
+    ~Symbol();
 
-    public:
-        Symbol(/* args*/);
-        Symbol(string name, TYPESYM type, int id);
-        ~Symbol();
+    void setName(string name);
+    void setType(TYPESYM type);
+    void setId(int id);
+    void setIdx(int idx);
 
-        void setName(string name);
-        void setType(TYPESYM type);
-        void setId(TYPESYM type);
-
-        string getName();
-        TYPESYM getType();
-        int getId();
-
+    string getName();
+    TYPESYM getType();
+    int getId();
+    int getIdx();
 
 };
 
-#endif
+#endif // SYMBOL_H

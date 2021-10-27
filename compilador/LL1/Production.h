@@ -3,17 +3,17 @@
 
 #include <vector>
 using namespace std;
+
 class Production
 {
 private:
     int head;
     vector<int> body;
-
 public:
     Production(/* args */);
     Production(int head, vector<int> body);
     ~Production();
+    int getHead();
+    vector<int> getBody();
 };
-
-
-#endif
+#endif // PRODUCTION_H
