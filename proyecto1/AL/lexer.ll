@@ -16,7 +16,8 @@ using namespace std;
 ENTERO [0-9]+
 FLOTANTE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?
 ID [A-Za-z_][A-Za-z0-9_]*
-CHAR [a-zA-Z0-9]+
+CHAR ['][a-zA-Z0-9][']
+CADENA ([']([ \t\n\r]?[a-zA-Z0-9]?)+['])
 ESP [ \t\n\r]
 
 %%
@@ -24,7 +25,7 @@ ESP [ \t\n\r]
 "int"   { return INT;}
 "float" { return FLOAT;}
 "char"  { return CHAR;}
-struct  { return STRUCT;}
+"struct"  { return STRUCT;}
 "else"  { return ELSE;}
 "if"    { return IF;}
 "do"    { return DO;}
@@ -47,6 +48,7 @@ struct  { return STRUCT;}
 "!="    { return DIFF;}
 ">="    { return MAYORY;}
 "<="    { return MENORY;}
+"!"    { return NOT;}
 "("     { return PARI;}
 ")"     { return PARD;}
 "{"     { return LLABI;}
@@ -59,7 +61,8 @@ struct  { return STRUCT;}
 {FLOTANTE} {return NUMERO;}
 {ID} {return ID;}
 {CHAR}     {return CHAR;}
-{ESP} {return ESPACE;}
+{CADENA}    {return CADENA;}
+{ESP} {}
 
 
 .    { cout<<"ERROR LEXICO "<<yytext<<endl;}   
