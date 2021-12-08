@@ -3,6 +3,9 @@
 
 namespace C_1{
 
+    const int DOUBLE = 36;
+    const int VOID = 37;
+    const int  = 38;
     const int MAS = 1;
     const int MEN = 2;
     const int MULT= 3;
@@ -38,6 +41,8 @@ namespace C_1{
     const int SCAN = 33;
     const int LLABI = 32;
     const int LLABD = 33;
+    const int CADENA = 34;
+    const int NOT = 35;
 }
 
 #endif

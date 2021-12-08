@@ -25,5 +25,6 @@ void main(){
         x = x -1;
     }
     print(x);
-    print(x+1);
+    print("Hola Oski");
+    print('Hola Hanni');
 }

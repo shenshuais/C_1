@@ -15,9 +15,10 @@ using namespace std;
 
 ENTERO [0-9]+
 FLOTANTE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?
+DOUBLE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?
 ID [A-Za-z_][A-Za-z0-9_]*
 CHAR ['][a-zA-Z0-9][']
-CADENA ([']([ \t\n\r]?[a-zA-Z0-9]?)+['])
+CADENA ([']([ \t\n\r]?[a-zA-Z0-9]?[;:/.,!$%”&()*+-<=>]?)+['])
 ESP [ \t\n\r]
 
 %%

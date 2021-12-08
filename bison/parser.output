@@ -1,0 +1,668 @@
+Gramática
+
+    0 $accept: programa $end
+
+    1 programa: declaraciones sentencias
+
+    2 declaraciones: declaraciones declaracion
+    3              | declaracion
+
+    4 $@1: ε
+
+    5 declaracion: tipo $@1 lista_var PYC
+
+    6 tipo: INT
+    7     | FLOAT
+
+    8 lista_var: lista_var COMA ID
+    9          | ID
+
+   10 sentencias: sentencias sentencia
+   11           | sentencia
+
+   12 $@2: ε
+
+   13 $@3: ε
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+   15 $@4: ε
+
+   16 $@5: ε
+
+   17 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias RKEY
+   18          | ID ASIG expresion PYC
+
+   19 expresion: expresion MAS expresion
+   20          | expresion MENOS expresion
+   21          | expresion MUL expresion
+   22          | expresion DIV expresion
+   23          | LPAR expresion RPAR
+   24          | NUMERO
+   25          | ID
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256)
+    ID <std::string> (258) 8 9 18 25
+    NUMERO <std::string> (259) 24
+    IF (260) 14
+    ELSE (261) 14
+    WHILE (262) 17
+    INT (263) 6
+    FLOAT (264) 7
+    LKEY (265) 14 17
+    RKEY (266) 14 17
+    PYC (267) 5 18
+    COMA (268) 8
+    ASIG (269) 18
+    MAS (270) 19
+    MENOS (271) 20
+    MUL (272) 21
+    DIV (273) 22
+    LPAR (274) 14 17 23
+    RPAR (275) 14 17 23
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (21)
+        on left: 0
+    programa (22)
+        on left: 1
+        on right: 0
+    declaraciones (23)
+        on left: 2 3
+        on right: 1 2
+    declaracion (24)
+        on left: 5
+        on right: 2 3
+    $@1 (25)
+        on left: 4
+        on right: 5
+    tipo <int> (26)
+        on left: 6 7
+        on right: 5
+    lista_var (27)
+        on left: 8 9
+        on right: 5 8
+    sentencias (28)
+        on left: 10 11
+        on right: 1 10 14 17
+    sentencia (29)
+        on left: 14 17 18
+        on right: 10 11
+    $@2 (30)
+        on left: 12
+        on right: 14
+    $@3 (31)
+        on left: 13
+        on right: 14
+    $@4 (32)
+        on left: 15
+        on right: 17
+    $@5 (33)
+        on left: 16
+        on right: 17
+    expresion <Expresion> (34)
+        on left: 19 20 21 22 23 24 25
+        on right: 14 17 18 19 20 21 22 23
+
+
+Estado 0
+
+    0 $accept: • programa $end
+
+    INT    desplazar e ir al estado 1
+    FLOAT  desplazar e ir al estado 2
+
+    programa       ir al estado 3
+    declaraciones  ir al estado 4
+    declaracion    ir al estado 5
+    tipo           ir al estado 6
+
+
+Estado 1
+
+    6 tipo: INT •
+
+    $default  reduce usando la regla 6 (tipo)
+
+
+Estado 2
+
+    7 tipo: FLOAT •
+
+    $default  reduce usando la regla 7 (tipo)
+
+
+Estado 3
+
+    0 $accept: programa • $end
+
+    $end  desplazar e ir al estado 7
+
+
+Estado 4
+
+    1 programa: declaraciones • sentencias
+    2 declaraciones: declaraciones • declaracion
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    INT    desplazar e ir al estado 1
+    FLOAT  desplazar e ir al estado 2
+
+    declaracion  ir al estado 11
+    tipo         ir al estado 6
+    sentencias   ir al estado 12
+    sentencia    ir al estado 13
+
+
+Estado 5
+
+    3 declaraciones: declaracion •
+
+    $default  reduce usando la regla 3 (declaraciones)
+
+
+Estado 6
+
+    5 declaracion: tipo • $@1 lista_var PYC
+
+    $default  reduce usando la regla 4 ($@1)
+
+    $@1  ir al estado 14
+
+
+Estado 7
+
+    0 $accept: programa $end •
+
+    $default  aceptar
+
+
+Estado 8
+
+   18 sentencia: ID • ASIG expresion PYC
+
+    ASIG  desplazar e ir al estado 15
+
+
+Estado 9
+
+   14 sentencia: IF • LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    LPAR  desplazar e ir al estado 16
+
+
+Estado 10
+
+   17 sentencia: WHILE • $@4 LPAR expresion $@5 RPAR LKEY sentencias RKEY
+
+    $default  reduce usando la regla 15 ($@4)
+
+    $@4  ir al estado 17
+
+
+Estado 11
+
+    2 declaraciones: declaraciones declaracion •
+
+    $default  reduce usando la regla 2 (declaraciones)
+
+
+Estado 12
+
+    1 programa: declaraciones sentencias •
+   10 sentencias: sentencias • sentencia
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+
+    $default  reduce usando la regla 1 (programa)
+
+    sentencia  ir al estado 18
+
+
+Estado 13
+
+   11 sentencias: sentencia •
+
+    $default  reduce usando la regla 11 (sentencias)
+
+
+Estado 14
+
+    5 declaracion: tipo $@1 • lista_var PYC
+
+    ID  desplazar e ir al estado 19
+
+    lista_var  ir al estado 20
+
+
+Estado 15
+
+   18 sentencia: ID ASIG • expresion PYC
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 24
+
+
+Estado 16
+
+   14 sentencia: IF LPAR • expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 25
+
+
+Estado 17
+
+   17 sentencia: WHILE $@4 • LPAR expresion $@5 RPAR LKEY sentencias RKEY
+
+    LPAR  desplazar e ir al estado 26
+
+
+Estado 18
+
+   10 sentencias: sentencias sentencia •
+
+    $default  reduce usando la regla 10 (sentencias)
+
+
+Estado 19
+
+    9 lista_var: ID •
+
+    $default  reduce usando la regla 9 (lista_var)
+
+
+Estado 20
+
+    5 declaracion: tipo $@1 lista_var • PYC
+    8 lista_var: lista_var • COMA ID
+
+    PYC   desplazar e ir al estado 27
+    COMA  desplazar e ir al estado 28
+
+
+Estado 21
+
+   25 expresion: ID •
+
+    $default  reduce usando la regla 25 (expresion)
+
+
+Estado 22
+
+   24 expresion: NUMERO •
+
+    $default  reduce usando la regla 24 (expresion)
+
+
+Estado 23
+
+   23 expresion: LPAR • expresion RPAR
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 29
+
+
+Estado 24
+
+   18 sentencia: ID ASIG expresion • PYC
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+
+    PYC    desplazar e ir al estado 30
+    MAS    desplazar e ir al estado 31
+    MENOS  desplazar e ir al estado 32
+    MUL    desplazar e ir al estado 33
+    DIV    desplazar e ir al estado 34
+
+
+Estado 25
+
+   14 sentencia: IF LPAR expresion • $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+
+    MAS    desplazar e ir al estado 31
+    MENOS  desplazar e ir al estado 32
+    MUL    desplazar e ir al estado 33
+    DIV    desplazar e ir al estado 34
+
+    $default  reduce usando la regla 12 ($@2)
+
+    $@2  ir al estado 35
+
+
+Estado 26
+
+   17 sentencia: WHILE $@4 LPAR • expresion $@5 RPAR LKEY sentencias RKEY
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 36
+
+
+Estado 27
+
+    5 declaracion: tipo $@1 lista_var PYC •
+
+    $default  reduce usando la regla 5 (declaracion)
+
+
+Estado 28
+
+    8 lista_var: lista_var COMA • ID
+
+    ID  desplazar e ir al estado 37
+
+
+Estado 29
+
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+   23          | LPAR expresion • RPAR
+
+    MAS    desplazar e ir al estado 31
+    MENOS  desplazar e ir al estado 32
+    MUL    desplazar e ir al estado 33
+    DIV    desplazar e ir al estado 34
+    RPAR   desplazar e ir al estado 38
+
+
+Estado 30
+
+   18 sentencia: ID ASIG expresion PYC •
+
+    $default  reduce usando la regla 18 (sentencia)
+
+
+Estado 31
+
+   19 expresion: expresion MAS • expresion
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 39
+
+
+Estado 32
+
+   20 expresion: expresion MENOS • expresion
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 40
+
+
+Estado 33
+
+   21 expresion: expresion MUL • expresion
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 41
+
+
+Estado 34
+
+   22 expresion: expresion DIV • expresion
+
+    ID      desplazar e ir al estado 21
+    NUMERO  desplazar e ir al estado 22
+    LPAR    desplazar e ir al estado 23
+
+    expresion  ir al estado 42
+
+
+Estado 35
+
+   14 sentencia: IF LPAR expresion $@2 • RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    RPAR  desplazar e ir al estado 43
+
+
+Estado 36
+
+   17 sentencia: WHILE $@4 LPAR expresion • $@5 RPAR LKEY sentencias RKEY
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+
+    MAS    desplazar e ir al estado 31
+    MENOS  desplazar e ir al estado 32
+    MUL    desplazar e ir al estado 33
+    DIV    desplazar e ir al estado 34
+
+    $default  reduce usando la regla 16 ($@5)
+
+    $@5  ir al estado 44
+
+
+Estado 37
+
+    8 lista_var: lista_var COMA ID •
+
+    $default  reduce usando la regla 8 (lista_var)
+
+
+Estado 38
+
+   23 expresion: LPAR expresion RPAR •
+
+    $default  reduce usando la regla 23 (expresion)
+
+
+Estado 39
+
+   19 expresion: expresion • MAS expresion
+   19          | expresion MAS expresion •
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+
+    MUL  desplazar e ir al estado 33
+    DIV  desplazar e ir al estado 34
+
+    $default  reduce usando la regla 19 (expresion)
+
+
+Estado 40
+
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   20          | expresion MENOS expresion •
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+
+    MUL  desplazar e ir al estado 33
+    DIV  desplazar e ir al estado 34
+
+    $default  reduce usando la regla 20 (expresion)
+
+
+Estado 41
+
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   21          | expresion MUL expresion •
+   22          | expresion • DIV expresion
+
+    $default  reduce usando la regla 21 (expresion)
+
+
+Estado 42
+
+   19 expresion: expresion • MAS expresion
+   20          | expresion • MENOS expresion
+   21          | expresion • MUL expresion
+   22          | expresion • DIV expresion
+   22          | expresion DIV expresion •
+
+    $default  reduce usando la regla 22 (expresion)
+
+
+Estado 43
+
+   14 sentencia: IF LPAR expresion $@2 RPAR • LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    LKEY  desplazar e ir al estado 45
+
+
+Estado 44
+
+   17 sentencia: WHILE $@4 LPAR expresion $@5 • RPAR LKEY sentencias RKEY
+
+    RPAR  desplazar e ir al estado 46
+
+
+Estado 45
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY • sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+
+    sentencias  ir al estado 47
+    sentencia   ir al estado 13
+
+
+Estado 46
+
+   17 sentencia: WHILE $@4 LPAR expresion $@5 RPAR • LKEY sentencias RKEY
+
+    LKEY  desplazar e ir al estado 48
+
+
+Estado 47
+
+   10 sentencias: sentencias • sentencia
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias • $@3 RKEY ELSE LKEY sentencias RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+
+    $default  reduce usando la regla 13 ($@3)
+
+    sentencia  ir al estado 18
+    $@3        ir al estado 49
+
+
+Estado 48
+
+   17 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY • sentencias RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+
+    sentencias  ir al estado 50
+    sentencia   ir al estado 13
+
+
+Estado 49
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 • RKEY ELSE LKEY sentencias RKEY
+
+    RKEY  desplazar e ir al estado 51
+
+
+Estado 50
+
+   10 sentencias: sentencias • sentencia
+   17 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias • RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    RKEY   desplazar e ir al estado 52
+
+    sentencia  ir al estado 18
+
+
+Estado 51
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY • ELSE LKEY sentencias RKEY
+
+    ELSE  desplazar e ir al estado 53
+
+
+Estado 52
+
+   17 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias RKEY •
+
+    $default  reduce usando la regla 17 (sentencia)
+
+
+Estado 53
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE • LKEY sentencias RKEY
+
+    LKEY  desplazar e ir al estado 54
+
+
+Estado 54
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY • sentencias RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+
+    sentencias  ir al estado 55
+    sentencia   ir al estado 13
+
+
+Estado 55
+
+   10 sentencias: sentencias • sentencia
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias • RKEY
+
+    ID     desplazar e ir al estado 8
+    IF     desplazar e ir al estado 9
+    WHILE  desplazar e ir al estado 10
+    RKEY   desplazar e ir al estado 56
+
+    sentencia  ir al estado 18
+
+
+Estado 56
+
+   14 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY •
+
+    $default  reduce usando la regla 14 (sentencia)
