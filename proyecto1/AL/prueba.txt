@@ -1,7 +1,5 @@
 int x;
 int y;
-y = 6.6f;
-x = 6.6;
 
 struct {
     int x;
@@ -19,8 +17,6 @@ int suma ( int a , int b ) {
 }
 
 void main(){
-    x = 6;
-    y = 1;
     y = 6.6f;
     x = 6.6d;
     c = '%';
