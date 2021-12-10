@@ -14,11 +14,11 @@ using namespace std;
 %option noyywrap
 
 ENTERO [0-9]+
-FLOTANTE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?
-DOUBLE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?
+DOUBLE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?(d|D)?
+FLOTANTE [0-9]*\.[0-9]+([Ee][+-]?[0-9]+)?(f|F)
+CHAR ['][\x20-\x7E][']
 ID [A-Za-z_][A-Za-z0-9_]*
-CHAR ['][a-zA-Z0-9][']
-CADENA ([']([ \t\n\r]?[a-zA-Z0-9]?[;:/.,!$%”&()*+-<=>]?)+['])
+CADENA (["][\x20-\x7E]+["])
 ESP [ \t\n\r]
 
 %%
@@ -59,9 +59,10 @@ ESP [ \t\n\r]
 
 
 {ENTERO}   {return NUMERO;}
+{DOUBLE} {return NUMERO;}
 {FLOTANTE} {return NUMERO;}
-{ID} {return ID;}
 {CHAR}     {return CHAR;}
+{ID} {return ID;}
 {CADENA}    {return CADENA;}
 {ESP} {}
 
