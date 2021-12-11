@@ -491,8 +491,8 @@ static const flex_int16_t yy_chk[241] =
 #include <string>
 using namespace std;
 
-#include "tokens.h"
-#include "Scanner.h"
+#include "tokens.hpp"
+#include "Scanner.hpp"
 #line 496 "Scanner.cpp"
 #line 497 "Scanner.cpp"
 
@@ -759,12 +759,12 @@ YY_RULE_SETUP
 case 15:
 YY_RULE_SETUP
 #line 40 "lexer.ll"
-{ return MEN;}
+{ return MENOS;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 41 "lexer.ll"
-{ return MULT;}
+{ return MUL;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
@@ -774,7 +774,7 @@ YY_RULE_SETUP
 case 18:
 YY_RULE_SETUP
 #line 43 "lexer.ll"
-{ return IGUAL;}
+{ return ASIG;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
@@ -859,7 +859,7 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 62 "lexer.ll"
-{return DOUBLE;}
+{return NUMERO;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP

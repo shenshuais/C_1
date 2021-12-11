@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Scanner.h"
+#include "Scanner.hpp"
 
 using namespace std;
 using namespace C_1;

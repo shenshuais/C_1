@@ -3,8 +3,8 @@
 #include <string>
 using namespace std;
 
-#include "tokens.h"
-#include "Scanner.h"
+#include "tokens.hpp"
+#include "Scanner.hpp"
 %}
 
 %option c++ 
@@ -37,10 +37,10 @@ ESP [ \t\n\r]
 "return" { return RETURNN;}
 "."     { return PUNTO;}
 "+"     { return MAS;}
-"-"     { return MEN;}
-"*"     { return MULT;}
+"-"     { return MENOS;}
+"*"     { return MUL;}
 "/"     { return DIV;}
-"="     { return IGUAL;}
+"="     { return ASIG;}
 "||"    { return OR;}
 "&&"    { return AND;}
 "<"     { return MENOSK;}
