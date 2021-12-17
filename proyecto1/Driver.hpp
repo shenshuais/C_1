@@ -1,17 +1,18 @@
 #ifndef __DRIVER_HPP__
 #define __DRIVER_HPP__
+#include <iostream>
 #include <string>
 #include <map>
 #include <stack>
+#include <vector>
+#include "Sym.hpp"
+#include "TypeTab.hpp"
+#include "SymTab.hpp"
+#include "Cuadrupla.hpp"
 
-struct Cuadrupla{
-    std::string arg1;
-    std::string arg2;
-    std::string operador;
-    std::string resultado;
-};
 
 class SymTab;
+
 struct Expresion{
     std::string dir;
     int tipo;
@@ -24,8 +25,14 @@ struct Numero{
 class Driver
 {
 private:
+
     //TypeTab tt;
+    TypeTab tt;
     //Pila de tablas de símbolos
+    //Tabla de simbolos
+    SymTab ts;
+    //
+    vector<Cuadrupla> codigo_intermedio;
     std::stack<std::string> pilaEtiques;
     std::stack<int> pilaDir;
     std::stack<int> pilaTemporal;
@@ -39,6 +46,7 @@ private:
     int numType;
     int cteFloat;
     std::vector<Cuadrupla> codigo_intermedio;
+    
     //Generador de codigo final
 
 public:
@@ -47,14 +55,17 @@ public:
     // Funciones para tabla de tipos
     int agregar_tipo(string nombre, int tam_bytes, SymTab *tipo_base);
     //
-    void agregar_simbolo(std::string id, int tipo, std::string categoria);
-    void agregar_simbolo(std::string id, int tipo, std::vector<int> args);
+    void agragar_simbolo(std::string id, int tipo, std::string categoria);
+    void agregar_simbolo(std::string id, int dir, int type, std::string categoria);
+    void agregar_simbolo(std::string id, int dir, int tipo, string categoria, std::vector<int> args);
+    
 
+    string nuevaEtiqueta(int lab);
     string nuevaEtiqueta();
     string nuevaTemporal();
     
 
-    void asignacion(std::string id, Expresion e);
+    Expresion asignacion(std::string id, Expresion e);
     Expresion disyunción(Expresion e1, Expresion e2);
     Expresion conjuncion(Expresion e1, Expresion e2);
     Expresion igual(Expresion e1, Expresion e2);
@@ -69,7 +80,7 @@ public:
     Expresion division(Expresion e1, Expresion e2);    
     Expresion negacion(Expresion e1);
     Expresion identificador(std::string id);
-    Expresion numero(std::string val, int tipo);
+    Numero numero(std::string val, int tipo);
 
     std::string ampliar(std::string dir, int t1, int t2);
     std::string reducir(std::string dir, int t1, int t2);
@@ -83,6 +94,8 @@ public:
     void gen_label(string label);
     void gen_goto(string label);
     void gen_if(string var, string ltrue);
+
+    void genCode( string arg1,string arg2 , string op ,string res);
 };
 
 
