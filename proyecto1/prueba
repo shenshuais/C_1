@@ -1,0 +1,348 @@
+%token PYC COMA PUNTO
+%token<string> ID
+%token PARI PARD LLABI LLABD
+%token IF ELSE WHILE DO RETURNN PRINT SCAN BREAK
+%token ASIG
+%token OR
+%token AND
+%token EQUAL DIFF 
+%token MENOSK MAYORK MENORY MAYORY
+%token MAS MENOS 
+%token MUL DIV
+%token NOT 
+%token INT FLOAT CHAR DOUBLE VOID STRUCT
+%token<string> NUMERO
+%token<string> CADENA
+
+%type declaraciones 
+%type declaracion
+%type tipo decl1 decl2 lista_args decl_locales bloqueSentencias
+%type decl_var lista_var
+%type lista_var_
+%type decl3
+%type body_struct
+%type args 
+%type args_ arg
+%type decl_local
+%type sentencias sentencias_
+%type sentencia sentencia_ sentIf sentWhile sentAsig sentBreak sentDo sentReturn sentScan
+%type expresion bloqueOSentencia sentIf_
+%type parte_izq 
+%type parte_izq_
+%type sentReturn_
+%type annd expresion_
+%type annd_ 
+%type comp
+%type comp_
+%type des
+%type des_
+%type sum 
+%type sum_
+%type mult
+%type mult_
+%type not
+%type factor
+%type factor_ lista_params
+%type params
+%type params_ param
+
+%start programa
+
+%%
+
+programa : declaraciones ;
+
+declaraciones : 
+    declaracion declaraciones
+    |
+    ;
+
+declaracion :
+    tipo ID { } decl1
+    |
+    STRUCT decl2
+    |
+    VOID ID PARI lista_args PARD LLABI decl_locales COMA bloqueSentencias LLABD
+    ;
+
+decl_var :
+    tipo { } lista_var PYC 
+    ;
+
+lista_var :
+    ID { } lista_var_
+    ;
+
+lista_var_ :
+    COMA ID { } lista_var_
+    |
+    ;
+
+decl1 :
+    { } lista_var_ PYC
+    |
+    PARI lista_args PARD LLABI decl_locales COMA bloqueSentencias LLABD
+    ;
+
+decl2 :
+    body_struct { } lista_var_ PYC
+    |
+    ID { } decl3
+    ;
+
+decl3 :
+    body_struct {} lista_var_ PYC
+    |
+    ID PARI lista_args PARD LLABI decl_locales COMA bloqueSentencias LLABD
+    ;
+
+body_struct :
+    LLABI decl_locales LLABD
+    ;
+
+tipo :
+    CHAR {}
+    |
+    INT {}
+    | 
+    FLOAT {}
+    |
+    DOUBLE {}
+    ;
+
+lista_args : 
+    args {}
+    |
+    {}
+    ;
+
+args :
+    arg {} args_ {}
+    ;
+
+args_ :
+    COMA arg {} args_ {}
+    |
+    {}
+    ;
+
+arg :
+    tipo ID
+    ;
+
+decl_locales :
+    decl_local decl_locales
+    |
+    ;
+
+decl_local :
+    decl_var
+    ;
+
+bloqueSentencias :
+    sentencias
+    |
+    ;
+
+sentencias :
+    sentencia sentencias_
+    ;
+
+sentencias_ :
+    sentencia sentencias_
+    |
+    ;
+
+sentencia :
+    PRINT PARI sentencia_
+    |
+    sentIf
+    |
+    sentWhile
+    |
+    sentAsig
+    |
+    sentBreak
+    |
+    sentDo
+    |
+    sentReturn
+    |
+    sentScan
+    ;
+
+sentencia_ :
+    CADENA PARD PYC
+    |
+    expresion PARD PYC
+    ;
+
+sentIf :
+    IF PARI {} expresion PARD bloqueOSentencia sentIf_
+    ;
+
+sentIf_ :
+    ELSE bloqueOSentencia
+    |
+    ;
+
+sentWhile :
+    WHILE PARI { } expresion PARD { } bloqueOSentencia   
+    ;
+
+sentDo :
+    DO { }bloqueOSentencia WHILE PARI { } expresion PARD PYC
+    ;
+
+sentAsig :
+    { } parte_izq ASIG expresion PYC
+    ;
+
+parte_izq :
+    ID { } parte_izq_
+    ;
+
+parte_izq_ :
+    PUNTO ID
+    |
+    ;
+
+sentScan :
+    SCAN PARI ID PARD PYC
+    ;
+
+sentBreak :
+    BREAK PYC
+    ;
+
+sentReturn :
+    RETURNN sentReturn_
+    ;
+
+sentReturn_ :
+    PYC
+    |
+    expresion PYC
+    ;
+
+expresion :
+    annd {} expresion_ {}
+    ;
+
+expresion_ :
+    OR annd {} expresion_ {}
+    |
+    {}
+    ;
+
+annd :
+    annd {} annd_ {}
+    ;
+
+annd_ :
+    AND comp {} annd_ {}
+    |
+    {}
+    ;
+
+comp :
+    des {} comp_ {}
+    ;
+
+comp_ :
+    EQUAL des {} comp_ {}
+    |
+    DIFF des {} comp_ {}
+    |
+    {}
+    ;
+
+des :
+    sum  {} des_ {}
+    ;
+
+des_ :
+    MENOSK sum {} des_ {}
+    |
+    MAYORK sum {} des_ {}
+    |
+    MAYORY sum {} des_ {}
+    |
+    MENORY sum {} des_ {}
+    |
+    {}
+    ;
+
+sum :
+    mult {} sum_ {}
+    ;
+
+sum_ :
+    MAS {} sum_ {}
+    |
+    MENOS {} sum_ {}
+    |
+    {}
+    ;
+
+mult :
+    not {} mult_ {}
+    ;
+
+mult_ :
+    MUL not {} mult_ {}
+    |
+    DIV not {} mult_ {}
+    |
+    {}
+    ;
+
+not :
+    NOT factor {}
+    |
+    factor {}
+    ;
+
+factor :
+    PARI expresion PARD {}
+    |
+    NUMERO {}
+    |
+    ID factor_ {}
+    ;
+
+factor_ :
+    PARI lista_params PARD
+    |
+    PUNTO ID
+    |
+    {}
+    ;
+
+lista_params :
+    params {}
+    |
+    {}
+    ;
+
+params :
+    param {}
+    ;
+
+params_ :
+    COMA param {}
+    |
+    {}
+    ;
+
+param :
+    expresion {}
+    ;
+
+bloqueOSentencia :
+    LLABI sentencias LLABD
+    |
+    sentencia
+    ;
+
+%%

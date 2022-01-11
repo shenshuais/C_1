@@ -1,0 +1,98 @@
+%token PYC COMA
+%token<string> IDENTIFICADOR
+%token LPAR RPAR LKEY RKEY
+%token IF ELSE WHILE
+%token ASIG
+%token MAS MENOS
+%token MUL DIV
+%token INT FLOAT
+%token<string> NUMERO
+
+%type declaraciones sentencias
+%type declaracion declaraciones_
+%type<int> tipo lista_var lista_var_
+%type sentencia sentencias_
+%type<Expresion> expresion expresion_
+%type<Expresion> termino termino_
+%type<Expresion> factor
+
+%start programa
+
+%%
+
+programa : declaraciones sentencias ;
+
+declaraciones : 
+    declaracion declaraciones_
+    ;
+
+declaraciones_ : 
+    declaracion declaraciones_
+    ;
+
+declaracion :
+    tipo { } lista_var PYC 
+    ;
+
+tipo : 
+    INT {}
+    | 
+    FLOAT {}
+    ;
+
+lista_var : 
+    IDENTIFICADOR {} lista_var_ 
+    ;
+
+lista_var_ : 
+    COMA IDENTIFICADOR {} lista_var_
+    | ;
+
+sentencias : 
+    sentencia sentencias_
+    ;
+
+sentencias_ : 
+    sentencia sentencias_
+    |
+    ;
+
+sentencia: 
+    IDENTIFICADOR ASIG expresion PYC  {}
+    |
+    IF LPAR expresion RPAR LKEY {} sentencias RKEY ELSE LKEY {} sentencias RKEY {}
+    | 
+    WHILE LPAR expresion RPAR LKEY {} sentencias RKEY {}
+    ;
+
+expresion : 
+    termino {} expresion_ {}
+;
+
+expresion_: 
+    MAS termino {} expresion_ {}
+    | 
+    MENOS termino {} expresion_  {}
+    | {}
+    ;
+
+termino: 
+    factor {} termino_ {}
+    ;
+
+termino_: 
+    MUL factor {$3 = driver.asig($$, $1)} termino_ {}
+    |
+    DIV factor  {} termino_ {}
+    |{}
+    ;
+
+factor : 
+    LPAR expresion RPAR {}
+    | 
+    IDENTIFICADOR {}
+    | 
+    NUMERO {}
+    ;
+
+%%
