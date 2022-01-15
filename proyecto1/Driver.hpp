@@ -9,6 +9,7 @@
 #include "TypeTab.hpp"
 #include "SymTab.hpp"
 #include "Cuadrupla.hpp"
+#include "Pila.hpp"
 
 
 class SymTab;
@@ -26,12 +27,12 @@ class Driver
 {
 private:
 
-    //TypeTab tt;
     TypeTab tt;
     //Pila de tablas de símbolos
+    Pila pilaTs;
     //Tabla de simbolos
     SymTab ts;
-    //
+    map<string,string> tCadenas;
     vector<Cuadrupla> codigo_intermedio;
     std::stack<std::string> pilaEtiques;
     std::stack<int> pilaDir;
@@ -87,6 +88,9 @@ public:
     int maximo(int t1, int t2);
     int minimo(int t1, int t2);
     bool compatibles(int t1, int t2);
+    void ambito();
+    void destroy_ambito();
+    SymTab *destroy_ambito2();
 
     void error_semantico(std::string mensaje);
     void gen_imprimir(string val);

@@ -1,0 +1,324 @@
+%token ID NUMERO CADENA CARACTER
+%token PYC COMA PUNTO
+%token LKEY RKEY
+%token IF ELSE WHILE DO RETURN BREAK
+%token INT FLOAT CHAR DOUBLE VOID STRUCT
+%token PRINT SCAN
+%token ASIG
+%token OR
+%token AND
+%token EQUAL DIFF 
+%token LT GT LTE GTE
+%token ADD SUB
+%token MUL DIV MOD
+%token NOT 
+%token LPAR RPAR
+
+%type declaraciones declaraciones_ declaracion__ declaracion___ declaracion  declaracion_
+%type lista_args decl_locales bloque_sentencias bloque_o_sentencia
+%type body_struct lista_var lista_var_ decl_var
+%type tipo args args_ arg decl_local sentencias sentencias_ sentencia
+%type sent_while sent_asig sent_break  sent_scan sent_do 
+%type sent_if_ sent_if sent_return sent_print sent_return_ sent_print_
+%type parte_izq parte_izq_
+%type exp exp_ exp_and exp_and_ exp_rel exp_rel_ exp_rel1 exp_rel1_
+%type exp_mas exp_mas_ exp_mul exp_mul_ exp_not exp_par exp_par_
+%type lista_params params params_ param
+
+%start programa
+
+%%
+
+programa : 
+    declaraciones    
+    ;
+
+declaraciones:
+    declaracion
+    declaraciones_    
+    ;
+
+declaraciones_:
+    declaracion
+    declaraciones_
+    |
+    ;
+
+declaracion:
+    STRUCT declaracion_
+    |
+    tipo ID declaracion__
+    |
+    VOID ID LPAR lista_args RPAR LKEY decl_locales bloque_sentencias RKEY
+    ;
+
+declaracion_ :
+    body_struct lista_var PYC 
+    |
+    ID declaracion___
+    ;
+
+declaracion__:
+    lista_var_ PYC
+    |
+    LPAR lista_args RPAR LKEY decl_locales bloque_sentencias RKEY
+    ;
+
+declaracion___:
+    body_struct lista_var PYC
+    |
+    ID LPAR lista_args RPAR LKEY decl_locales bloque_sentencias RKEY
+    ;
+
+lista_var:
+    ID lista_var_
+    ;
+
+lista_var_:
+    COMA ID lista_var_
+    |
+    ;
+
+decl_var:
+    tipo lista_var PYC
+    ;
+
+tipo: 
+    INT
+    |
+    FLOAT
+    |
+    CHAR 
+    |
+    DOUBLE
+    ;
+
+body_struct:
+    LKEY decl_locales RKEY
+    ;
+
+lista_args:
+    args
+    |
+    ;
+
+args:
+    arg args_
+    ;
+
+args_:
+    COMA arg args_
+    |
+    ;
+
+arg:
+    tipo ID
+    ;
+
+decl_locales:
+    decl_local decl_locales
+    |
+    ;
+
+decl_local:
+    decl_var
+    ;
+
+bloque_sentencias:
+    sentencias
+    |
+    ;
+
+sentencias:
+    sentencia sentencias_
+    ;
+
+sentencias_:
+    sentencia sentencias_
+    |
+    ;
+
+sentencia:
+    sent_if
+    |
+    sent_while
+    |
+    sent_do
+    |
+    sent_asig
+    |
+    sent_break
+    |
+    sent_return
+    |
+    sent_print
+    |
+    sent_scan
+    ;
+
+sent_if:
+    IF LPAR exp RPAR bloque_o_sentencia sent_if_
+    ;
+
+sent_if_:
+    ELSE bloque_o_sentencia
+    |
+    ;
+
+sent_while:
+    WHILE LPAR exp RPAR bloque_o_sentencia
+    ;
+
+sent_do:
+    DO bloque_o_sentencia WHILE LPAR exp RPAR
+    ;
+
+sent_asig:
+    parte_izq ASIG exp PYC
+    ;
+
+parte_izq:
+    ID parte_izq_
+    ;
+
+parte_izq_:
+    PUNTO ID
+    |
+    ;
+
+sent_print:
+    PRINT LPAR sent_print_
+    ;
+
+sent_print_:
+    exp RPAR PYC
+    |
+    CADENA RPAR PYC
+    ;
+
+sent_scan:
+    SCAN LPAR ID RPAR PYC
+    ;
+
+sent_break:
+    BREAK PYC
+    ;
+
+sent_return:
+    RETURN sent_return_
+    ;
+
+sent_return_:
+    exp PYC
+    |
+    PYC
+    ;
+
+exp: 
+    exp_and exp_
+    ;
+
+exp_ :
+    OR exp_and exp_
+    |
+    ;
+
+exp_and:
+    exp_rel exp_and_
+    ;
+
+exp_and_:
+    AND exp_rel exp_and_
+    |
+    ;
+
+exp_rel:
+    exp_rel1 exp_rel_
+    ;
+
+exp_rel_:
+    EQUAL exp_rel1 exp_rel_
+    |
+    DIFF exp_rel1 exp_rel_
+    |
+    ;
+
+exp_rel1:
+    exp_mas exp_rel1_
+    ;
+
+exp_rel1_:
+    LT exp_mas exp_rel1_
+    |
+    LTE exp_mas exp_rel1_
+    |
+    GT exp_mas exp_rel1_
+    |
+    GTE exp_mas exp_rel1_
+    |
+    ;
+
+exp_mas:
+    exp_mul exp_mas_
+    ;
+
+exp_mas_:
+    ADD exp_mul exp_mas_
+    |
+    SUB exp_mul exp_mas_
+    |
+    ;
+
+exp_mul:
+    exp_not exp_mul_
+    ;
+
+exp_mul_:
+    MUL exp_not exp_mul_
+    |
+    DIV exp_not exp_mul_
+    |
+    MOD exp_not exp_mul_
+    |
+    ;
+
+exp_not:
+    NOT exp_not
+    |
+    exp_par
+    ;
+
+exp_par:
+    ID exp_par_
+    |
+    LPAR exp RPAR
+    |
+    NUMERO
+    ;
+
+exp_par_:
+    LPAR lista_params RPAR
+    |
+    PUNTO ID
+    | 
+    ;
+
+lista_params:
+    params
+    |
+    ;
+
+params:
+    param params_
+    ;
+
+params_:
+    COMA param params_
+    |
+    ;
+
+param:
+    exp
+    ;
+
+%%

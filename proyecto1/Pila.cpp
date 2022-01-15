@@ -1,18 +1,32 @@
+#include "Pila.hpp"
+
+
+Pila::~Pila(){
+    data.clear();
+}
 
 void Pila::push(SymTab *ts)
 {
     data.push_back(ts);
 }
 
-SymTab Pila::top()
-{
+SymTab *Pila::pop(){
     int size = data.size()-1;
-    return data[size];
+    SymTab *s = data[size];
+    data.pop_back();
+    return s;
 }
 
-SymTab Pila::pop(){
+
+SymTab *Pila::top()
+{
     int size = data.size()-1;
-    T dato = data[size];
+    SymTab *s = data[size];
     data.pop_back();
-    return dato;
+    return s;
+}
+
+
+SymTab *Pila::bottom(){
+    return data[0];
 }

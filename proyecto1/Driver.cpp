@@ -4,6 +4,43 @@
 
 using namespace std;
 
+Driver::Driver()
+{
+    numEtiquetas = 0;
+    numType = 0;
+    numTemporales = 0;
+    dir = 0;
+    pilaTs.push(new SymTab());
+}
+
+void Driver::ambito()
+{
+    pilaTs.push(new SymTab());
+    pilaDir.push(dir);
+    dir = 0;
+    pilaTemporal.push(numTemporales);
+    numTemporales = 0;
+}
+
+void Driver::destroy_ambito(){
+    SymTab *ts = pilaTs.pop();
+    delete ts;
+    dir = pilaDir.top();
+    pilaDir.pop();
+    numTemporales = pilaTemporal.top();
+    pilaTemporal.pop();
+}
+
+SymTab *Driver::destroy_ambito2(){
+    SymTab *ts = pilaTs.pop();
+    delete ts;
+    dir = pilaDir.top();
+    pilaDir.pop();
+    numTemporales = pilaTemporal.top();
+    pilaTemporal.pop();
+    return ts;
+}
+
 Expresion Driver::disyunción(Expresion e1, Expresion e2){
     Expresion e;
     e.tipo = 2; // Depende de la tabla de tipos

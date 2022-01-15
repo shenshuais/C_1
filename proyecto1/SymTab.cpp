@@ -1,7 +1,4 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
+
 #include "SymTab.hpp"
 
 SymTab::SymTab()
